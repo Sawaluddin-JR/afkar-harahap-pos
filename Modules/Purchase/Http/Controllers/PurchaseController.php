@@ -36,12 +36,12 @@ class PurchaseController extends Controller
 
     public function store(StorePurchaseRequest $request) {
         DB::transaction(function () use ($request) {
-            // $total_amount = 0;
-            // foreach (Cart::instance('purchase')->content() as $cart_item) {
-            //     $total_amount += $cart_item->options->sub_total;
-            // }
+            $total_amount = 0;
+            foreach (Cart::instance('purchase')->content() as $cart_item) {
+                $total_amount += $cart_item->options->sub_total;
+            }
 
-            $due_amount = $request->total_amount - $request->paid_amount;
+            $due_amount = $total_amount - $request->paid_amount;
             if ($due_amount == $request->total_amount) {
                 $payment_status = 'Unpaid';
             } elseif ($due_amount > 0) {
