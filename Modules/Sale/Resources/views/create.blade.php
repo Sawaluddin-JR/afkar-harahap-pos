@@ -89,7 +89,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="note">Catatan</label>
+                                <label for="note">Catatan (Jika ada)</label>
                                 <textarea name="note" id="note" rows="5" class="form-control"></textarea>
                             </div>
 
