@@ -47,6 +47,7 @@ class Checkout extends Component
         ]);
     }
 
+
     public function proceed() {
         // if ($this->customer_id != null) {
             $this->dispatch('showCheckoutModal');

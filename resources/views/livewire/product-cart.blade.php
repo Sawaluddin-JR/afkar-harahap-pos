@@ -55,7 +55,7 @@
                                     @include('livewire.includes.product-cart-quantity')
                                 </td>
 
-                                <td class="align-middle text-center">
+                              <td class="align-middle text-center">
                                     {{ format_currency($cart_item->options->sub_total) }}
                                 </td>
 
