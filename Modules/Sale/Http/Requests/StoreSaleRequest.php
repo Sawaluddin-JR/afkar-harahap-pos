@@ -20,7 +20,7 @@ class StoreSaleRequest extends FormRequest
             // 'tax_percentage' => 'required|integer|min:0|max:100',
             // 'discount_percentage' => 'required|integer|min:0|max:100',
             // 'shipping_amount' => 'required|numeric',
-            // 'total_amount' => 'required|numeric',
+            'total_amount' => 'required|numeric',
             'paid_amount' => 'required|numeric',
             'status' => 'required|string|max:255',
             'payment_method' => 'required|string|max:255',

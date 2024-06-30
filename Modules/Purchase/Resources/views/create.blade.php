@@ -81,6 +81,12 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
+                                        <label for="total_amount">Total <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" name="total_amount" id="total_amount" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
                                         <label for="paid_amount">Jumlah Bayar <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <input id="paid_amount" type="text" class="form-control" name="paid_amount" required>
@@ -92,6 +98,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="total_amount">Total Amount <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input id="total_amount" type="text" class="form-control" name="total_amount" required readonly>
+                                            <div class="input-group-append">
+                                                <button id="getTotalAmount" class="btn btn-primary" type="button">
+                                                    <i class="bi bi-cash-coin"></i> Get Total
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
                             </div>
 
                             <div class="form-group">
@@ -124,8 +143,8 @@
             });
 
             $('#getTotalAmount').click(function () {
-                var totalAmount = {{ Cart::instance('purchase')->subtotal() }};
-                $('#paid_amount').maskMoney('mask', totalAmount);
+                $('#paid_amount').maskMoney('mask', {{ Cart::instance('purchase')->total() }});
+                $('#total_amount').val('{{ Cart::instance('purchase')->subtotal() }}');
             });
 
             $('#purchase-form').submit(function () {

@@ -67,12 +67,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-4">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="total_amount">Total <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" name="total_amount" id="total_amount" required>
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="paid_amount">Jumlah Bayar <span class="text-danger">*</span></label>
@@ -95,7 +95,7 @@
 
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-primary">
-                                   Add Penjualan <i class="bi bi-check"></i>
+                                    Add Penjualan <i class="bi bi-check"></i>
                                 </button>
                             </div>
                         </form>
@@ -119,7 +119,7 @@
 
             $('#getTotalAmount').click(function () {
                 $('#paid_amount').maskMoney('mask', {{ Cart::instance('sale')->total() }});
-                // $('#total_amount').val({{ Cart::instance('sale')->total() }});
+                $('#total_amount').val({{ Cart::instance('sale')->total() }});
             });
 
             $('#sale-form').submit(function () {
@@ -127,7 +127,7 @@
                 $('#paid_amount').val(paid_amount);
             });
 
-            // $('#total_amount').val({{ Cart::instance('sale')->total() }});
+            $('#total_amount').val({{ Cart::instance('sale')->total() }});
         });
     </script>
 @endpush

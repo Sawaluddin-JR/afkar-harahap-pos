@@ -70,7 +70,7 @@
                         <tr>
                             <td colspan="8" class="text-center">
                         <span class="text-danger">
-                            Silahkan cari dan pilih barang!
+                            Silahkan cari & pilih barang!
                         </span>
                             </td>
                         </tr>

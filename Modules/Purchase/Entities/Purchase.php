@@ -17,6 +17,7 @@ class Purchase extends Model
         'status', 'payment_status', 'payment_method', 'note'
     ];
 
+
     public function purchaseDetails() {
         return $this->hasMany(PurchaseDetail::class, 'purchase_id', 'id');
     }

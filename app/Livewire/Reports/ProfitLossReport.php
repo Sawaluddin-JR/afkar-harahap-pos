@@ -213,6 +213,6 @@ class ProfitLossReport extends Component
 
         // return $purchase_payments + $sale_return_payments + $this->expenses_amount;
 
-        return $purchase_payments;
+        return $purchase_payments + $this->expenses_amount;
     }
 }

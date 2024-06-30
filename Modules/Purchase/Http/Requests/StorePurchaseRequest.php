@@ -17,7 +17,7 @@ class StorePurchaseRequest extends FormRequest
         return [
             'supplier_id' => 'required|numeric',
             'reference' => 'required|string|max:255',
-            // 'total_amount' => 'required|numeric',
+            'total_amount' => 'nullable|numeric',
             'paid_amount' => 'required|numeric',
             'status' => 'required|string|max:255',
             'payment_method' => 'required|string|max:255',

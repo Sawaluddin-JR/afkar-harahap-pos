@@ -2,6 +2,7 @@
 
 namespace Modules\Purchase\Http\Controllers;
 
+use DebugBar\DataCollector\Renderable;
 use Modules\Purchase\DataTables\PurchaseDataTable;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Routing\Controller;
@@ -36,12 +37,12 @@ class PurchaseController extends Controller
 
     public function store(StorePurchaseRequest $request) {
         DB::transaction(function () use ($request) {
-            $total_amount = 0;
-            foreach (Cart::instance('purchase')->content() as $cart_item) {
-                $total_amount += $cart_item->options->sub_total;
-            }
+            // $total_amount = 0;
+            // foreach (Cart::instance('purchase')->content() as $cart_item) {
+            //     $total_amount += $cart_item->options->sub_total;
+            // }
 
-            $due_amount = $total_amount - $request->paid_amount;
+            $due_amount = $request->total_amount - $request->paid_amount;
             if ($due_amount == $request->total_amount) {
                 $payment_status = 'Unpaid';
             } elseif ($due_amount > 0) {
@@ -52,7 +53,6 @@ class PurchaseController extends Controller
 
             $purchase = Purchase::create([
                 'date' => $request->date,
-                // 'reference' => $request->reference,
                 'supplier_id' => $request->supplier_id,
                 'supplier_name' => Supplier::findOrFail($request->supplier_id)->supplier_name,
                 'paid_amount' => $request->paid_amount * 100,
@@ -62,6 +62,8 @@ class PurchaseController extends Controller
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,
                 'note' => $request->note,
+                // 'tax_amount' => Cart::instance('purchase')->tax() * 100,
+                // 'discount_amount' => Cart::instance('purchase')->discount() * 100,
             ]);
 
             foreach (Cart::instance('purchase')->content() as $cart_item) {
@@ -74,6 +76,9 @@ class PurchaseController extends Controller
                     'price' => $cart_item->price * 100,
                     'unit_price' => $cart_item->options->unit_price * 100,
                     'sub_total' => $cart_item->options->sub_total * 100,
+                    // 'product_discount_amount' => $cart_item->options->product_discount * 100,
+                    // 'product_discount_type' => $cart_item->options->product_discount_type,
+                    // 'product_tax_amount' => $cart_item->options->product_tax * 100,
                 ]);
 
                 if ($request->status == 'Completed') {
@@ -129,9 +134,12 @@ class PurchaseController extends Controller
                 'price'   => $purchase_detail->price,
                 'weight'  => 1,
                 'options' => [
+                    // 'product_discount' => $purchase_detail->product_discount_amount,
+                    // 'product_discount_type' => $purchase_detail->product_discount_type,
                     'sub_total'   => $purchase_detail->sub_total,
                     'code'        => $purchase_detail->product_code,
                     'stock'       => Product::findOrFail($purchase_detail->product_id)->product_quantity,
+                    // 'product_tax' => $purchase_detail->product_tax_amount,
                     'unit_price'  => $purchase_detail->unit_price
                 ]
             ]);
@@ -167,6 +175,8 @@ class PurchaseController extends Controller
                 'reference' => $request->reference,
                 'supplier_id' => $request->supplier_id,
                 'supplier_name' => Supplier::findOrFail($request->supplier_id)->supplier_name,
+                // 'discount_percentage' => $request->discount_percentage,
+                // 'shipping_amount' => $request->shipping_amount * 100,
                 'paid_amount' => $request->paid_amount * 100,
                 'total_amount' => $request->total_amount * 100,
                 'due_amount' => $due_amount * 100,
@@ -174,6 +184,8 @@ class PurchaseController extends Controller
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,
                 'note' => $request->note,
+                // 'tax_amount' => Cart::instance('purchase')->tax() * 100,
+                // 'discount_amount' => Cart::instance('purchase')->discount() * 100,
             ]);
 
             foreach (Cart::instance('purchase')->content() as $cart_item) {
@@ -186,6 +198,9 @@ class PurchaseController extends Controller
                     'price' => $cart_item->price * 100,
                     'unit_price' => $cart_item->options->unit_price * 100,
                     'sub_total' => $cart_item->options->sub_total * 100,
+                    // 'product_discount_amount' => $cart_item->options->product_discount * 100,
+                    // 'product_discount_type' => $cart_item->options->product_discount_type,
+                    // 'product_tax_amount' => $cart_item->options->product_tax * 100,
                 ]);
 
                 if ($request->status == 'Completed') {

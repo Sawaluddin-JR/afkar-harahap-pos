@@ -54,20 +54,27 @@ class HomeController extends Controller
     public function currentMonthChart() {
         abort_if(!request()->ajax(), 404);
 
-        $currentMonthSales = Sale::where('status', 'Completed')->whereMonth('date', date('m'))
+        $currentMonthSales = Sale::where('status', 'Completed')
+                ->whereMonth('date', date('m'))
                 ->whereYear('date', date('Y'))
                 ->sum('total_amount') / 100;
-        $currentMonthPurchases = Purchase::where('status', 'Completed')->whereMonth('date', date('m'))
+                // ->sum('total_amount');
+        $currentMonthPurchases = Purchase::where('status', 'Completed')
+                ->whereMonth('date', date('m'))
                 ->whereYear('date', date('Y'))
                 ->sum('total_amount') / 100;
+                // ->sum('total_amount');
         // $currentMonthExpenses = Expense::whereMonth('date', date('m'))
         //         ->whereYear('date', date('Y'))
         //         ->sum('amount') / 100;
 
         return response()->json([
             'sales'     => $currentMonthSales,
-            'purchases' => $currentMonthPurchases,
+            'purchases' => $currentMonthPurchases
             // 'expenses'  => $currentMonthExpenses
+
+            // 'sales'     => format_currency($currentMonthSales),
+            // 'purchases' => format_currency($currentMonthPurchases),
         ]);
     }
 
@@ -186,6 +193,7 @@ class HomeController extends Controller
         $days = [];
         foreach ($dates as $key => $value) {
             $data[] = $value / 100;
+            // $data[] = $value;
             $days[] = $key;
         }
 
@@ -218,6 +226,7 @@ class HomeController extends Controller
         $days = [];
         foreach ($dates as $key => $value) {
             $data[] = $value / 100;
+            // $data[] = $value;
             $days[] = $key;
         }
 
