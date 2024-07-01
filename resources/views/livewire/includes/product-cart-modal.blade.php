@@ -30,13 +30,6 @@
                             </div>
                         </div>
                     @endif
-                    <div class="form-group">
-                        <label>Tipe Diskon<span class="text-danger">*</span></label>
-                        <select wire:model.live="discount_type.{{ $cart_item->id }}" class="form-control" required>
-                            <option value="fixed">Fixed</option>
-                            <option value="percentage">Persentasi</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

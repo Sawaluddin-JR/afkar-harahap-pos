@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label>Customer</label>
                                     <select wire:model="customer_id" class="form-control" name="customer_id">
-                                        <option value="">Select Customer</option>
+                                        <option value="">Pilih Customer</option>
                                         @foreach($customers as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                                         @endforeach
@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select wire:model="sale_return_status" class="form-control" name="sale_return_status">
-                                        <option value="">Select Status</option>
+                                        <option value="">Pilih Status</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Shipped">Shipped</option>
                                         <option value="Completed">Completed</option>
@@ -49,9 +49,9 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Payment Status</label>
+                                    <label>Status Pembayaran</label>
                                     <select wire:model="payment_status" class="form-control" name="payment_status">
-                                        <option value="">Select Payment Status</option>
+                                        <option value="">Pilih Status Pembayaran</option>
                                         <option value="Paid">Paid</option>
                                         <option value="Unpaid">Unpaid</option>
                                         <option value="Partial">Partial</option>
@@ -84,14 +84,14 @@
                         </div>
                         <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Reference</th>
+                            <th>Tanggal</th>
+                            <th>Referensi</th>
                             <th>Customer</th>
                             <th>Status</th>
                             <th>Total</th>
-                            <th>Paid</th>
-                            <th>Due</th>
-                            <th>Payment Status</th>
+                            <th>Dibayarkan</th>
+                            <th>Sisa Bayar</th>
+                            <th>Status Pembayaran</th>
                         </tr>
                         </thead>
                         <tbody>

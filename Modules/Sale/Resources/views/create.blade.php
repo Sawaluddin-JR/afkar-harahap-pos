@@ -69,12 +69,6 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="total_amount">Total <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" name="total_amount" id="total_amount" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
                                         <label for="paid_amount">Jumlah Bayar <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <input id="paid_amount" type="text" class="form-control" name="paid_amount" required>
@@ -89,7 +83,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="note">Catatan (Jika ada)</label>
+                                <label for="note">Catatan</label>
                                 <textarea name="note" id="note" rows="5" class="form-control"></textarea>
                             </div>
 
@@ -119,7 +113,6 @@
 
             $('#getTotalAmount').click(function () {
                 $('#paid_amount').maskMoney('mask', {{ Cart::instance('sale')->total() }});
-                $('#total_amount').val({{ Cart::instance('sale')->total() }});
             });
 
             $('#sale-form').submit(function () {
@@ -127,7 +120,6 @@
                 $('#paid_amount').val(paid_amount);
             });
 
-            $('#total_amount').val({{ Cart::instance('sale')->total() }});
         });
     </script>
 @endpush

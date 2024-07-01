@@ -27,9 +27,9 @@
                         <div class="form-row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Payments</label>
+                                    <label>Pembayaran</label>
                                     <select wire:model.live="payments" class="form-control" name="payments">
-                                        <option value="">Select Payments</option>
+                                        <option value="">Pilih Pembayaran</option>
                                         <option value="sale">Sales</option>
                                         <option value="sale_return">Sale Returns</option>
                                         <option value="purchase">Purchase</option>
@@ -42,14 +42,11 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Payment Method</label>
+                                    <label>Metode Pembayaran</label>
                                     <select wire:model="payment_method" class="form-control" name="payment_method">
-                                        <option value="">Select Payment Method</option>
+                                        <option value="">Pilih Metode Pembayaran</option>
                                         <option value="Cash">Cash</option>
-                                        <option value="Credit Card">Credit Card</option>
                                         <option value="Bank Transfer">Bank Transfer</option>
-                                        <option value="Cheque">Cheque</option>
-                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                             </div>
@@ -80,11 +77,11 @@
                             </div>
                             <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Reference</th>
+                                <th>Tanggal</th>
+                                <th>Referensi</th>
                                 <th>{{ ucwords(str_replace('_', ' ', $payments)) }}</th>
                                 <th>Total</th>
-                                <th>Payment Method</th>
+                                <th>Metode Pembayaran</th>
                             </tr>
                             </thead>
                             <tbody>

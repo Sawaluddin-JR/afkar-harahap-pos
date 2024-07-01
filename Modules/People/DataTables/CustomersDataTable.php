@@ -35,8 +35,6 @@ use Yajra\DataTables\Services\DataTable;
 //                                  <'row'<'col-md-5'i><'col-md-7 mt-2'p>>")
 //             ->orderBy(4)
 //             ->buttons(
-//                 Button::make('excel')
-//                     ->text('<i class="bi bi-file-earmark-excel-fill"></i> Excel'),
 //                 Button::make('print')
 //                     ->text('<i class="bi bi-printer-fill"></i> Print'),
 //                 Button::make('reset')
@@ -49,12 +47,15 @@ use Yajra\DataTables\Services\DataTable;
 //     protected function getColumns() {
 //         return [
 //             Column::make('customer_name')
+//                 ->title('Nama Customer')
 //                 ->className('text-center align-middle'),
 
 //             Column::make('customer_email')
+//                 ->title('Email Customer')
 //                 ->className('text-center align-middle'),
 
 //             Column::make('customer_phone')
+//                 ->title('No HP Customer')
 //                 ->className('text-center align-middle'),
 
 //             Column::computed('action')

@@ -17,10 +17,10 @@ if (!function_exists('format_currency')) {
         }
 
         $settings = settings();
-        $position = $settings->default_currency_position;
-        $symbol = $settings->currency->symbol;
-        $decimal_separator = $settings->currency->decimal_separator;
-        $thousand_separator = $settings->currency->thousand_separator;
+        $position = $settings->default_currency_position ?? 'prefix';
+        $symbol = $settings->currency->symbol ?? 'Rp';
+        $decimal_separator = $settings->currency->decimal_separator ?? ',';
+        $thousand_separator = $settings->currency->thousand_separator ?? '.';
 
         if ($position == 'prefix') {
             $formatted_value = $symbol .' '. number_format((float) $value, 2, $decimal_separator, $thousand_separator);
@@ -44,19 +44,31 @@ if (!function_exists('array_merge_numeric_values')) {
     function array_merge_numeric_values() {
         $arrays = func_get_args();
         $merged = array();
+        // foreach ($arrays as $array) {
+        //     foreach ($array as $key => $value) {
+        //         if (!is_numeric($value)) {
+        //             continue;
+        //         }
+        //         if (!isset($merged[$key])) {
+        //             $merged[$key] = $value;
+        //         } else {
+        //             $merged[$key] += $value;
+        //         }
+        //     }
+        // }
+
         foreach ($arrays as $array) {
             foreach ($array as $key => $value) {
-                if (!is_numeric($value)) {
-                    continue;
-                }
-                if (!isset($merged[$key])) {
-                    $merged[$key] = $value;
-                } else {
-                    $merged[$key] += $value;
+                if (is_numeric($value)) {
+                    if (!isset($merged[$key])) {
+                        $merged[$key] = $value;
+                    } else {
+                        $merged[$key] += $value;
+                    }
                 }
             }
         }
-
+        
         return $merged;
     }
 }

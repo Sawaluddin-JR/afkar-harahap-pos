@@ -1,4 +1,4 @@
-<!-- @can('edit_customers')
+@can('edit_customers')
     <a href="{{ route('customers.edit', $data->id) }}" class="btn btn-info btn-sm">
         <i class="bi bi-pencil"></i>
     </a>
@@ -11,7 +11,7 @@
 @can('delete_customers')
     <button id="delete" class="btn btn-danger btn-sm" onclick="
         event.preventDefault();
-        if (confirm('Are you sure? It will delete the data permanently!')) {
+        if (confirm('Apakah anda yakin menghapus data ini?')) {
         document.getElementById('destroy{{ $data->id }}').submit()
         }
         ">
@@ -21,4 +21,4 @@
             @method('delete')
         </form>
     </button>
-@endcan -->
+@endcan

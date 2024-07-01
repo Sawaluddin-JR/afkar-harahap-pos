@@ -1,4 +1,4 @@
-<!-- @extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Customers')
 
@@ -37,4 +37,4 @@
 
 @push('page_scripts')
     {!! $dataTable->scripts() !!}
-@endpush -->
+@endpush

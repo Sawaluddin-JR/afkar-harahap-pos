@@ -1,4 +1,4 @@
-<!-- <div>
+<div>
     @if (session()->has('message'))
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <div class="alert-body">
@@ -82,4 +82,4 @@
             </div>
         </div>
     @endif
-</div> -->
+</div>

@@ -33,18 +33,6 @@
                                         <input type="text" class="form-control" name="reference" required value="{{ $sale->reference }}" readonly>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-4">
-                                    <div class="from-group">
-                                        <div class="form-group">
-                                            <label for="customer_id">Customer <span class="text-danger">*</span></label>
-                                            <select class="form-control" name="customer_id" id="customer_id" required>
-                                                @foreach(\Modules\People\Entities\Customer::all() as $customer)
-                                                    <option {{ $sale->customer_id == $customer->id ? 'selected' : '' }} value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="col-lg-4">
                                     <div class="from-group">
                                         <div class="form-group">
@@ -82,12 +70,6 @@
                                         <input id="paid_amount" type="text" class="form-control" name="paid_amount" required value="{{ $sale->paid_amount }}" readonly>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="total_amount">Total <span class="text-danger">*</span></label>
-                                        <input id="total_amount" type="number" class="form-control" name="total_amount" required value="{{ $sale->total_amount }}" readonly>
-                                    </div>
-                                </div> -->
                             </div>
 
                             <div class="form-group">
@@ -120,7 +102,6 @@
             });
 
             $('#paid_amount').maskMoney('mask');
-            // $('#total_amount').maskMoney('mask');
 
             $('#sale-form').submit(function () {
                 var paid_amount = $('#paid_amount').maskMoney('unmasked')[0];

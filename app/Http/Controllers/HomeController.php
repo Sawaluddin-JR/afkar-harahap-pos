@@ -18,7 +18,7 @@ class HomeController extends Controller
 {
 
     public function index() {
-        $sales = Sale::completed()->sum('total_amount');
+        $sales = Sale::completed()->sum('total_amount') / 100;
         // $sale_returns = SaleReturn::completed()->sum('total_amount');
         // $purchase_returns = PurchaseReturn::completed()->sum('total_amount');
         $product_costs = 0;
@@ -34,22 +34,17 @@ class HomeController extends Controller
         // $revenue = ($sales - $sale_returns) / 100;
         // $profit = $revenue - $product_costs;
 
-        $revenue = ($sales) / 100;
+        $revenue = ($sales);
         $profit = $revenue - $product_costs;
-
-        // return view('home', [
-        //     'revenue'          => $revenue,
-        //     'sale_returns'     => $sale_returns / 100,
-        //     'purchase_returns' => $purchase_returns / 100,
-        //     'profit'           => $profit
-        // ]);
 
         return view('home', [
             'revenue'          => $revenue,
+            // 'sale_returns'     => $sale_returns / 100,
+            // 'purchase_returns' => $purchase_returns / 100,
             'profit'           => $profit
         ]);
-    }
 
+    }
 
     public function currentMonthChart() {
         abort_if(!request()->ajax(), 404);
@@ -58,12 +53,10 @@ class HomeController extends Controller
                 ->whereMonth('date', date('m'))
                 ->whereYear('date', date('Y'))
                 ->sum('total_amount') / 100;
-                // ->sum('total_amount');
         $currentMonthPurchases = Purchase::where('status', 'Completed')
                 ->whereMonth('date', date('m'))
                 ->whereYear('date', date('Y'))
                 ->sum('total_amount') / 100;
-                // ->sum('total_amount');
         // $currentMonthExpenses = Expense::whereMonth('date', date('m'))
         //         ->whereYear('date', date('Y'))
         //         ->sum('amount') / 100;
@@ -72,9 +65,6 @@ class HomeController extends Controller
             'sales'     => $currentMonthSales,
             'purchases' => $currentMonthPurchases
             // 'expenses'  => $currentMonthExpenses
-
-            // 'sales'     => format_currency($currentMonthSales),
-            // 'purchases' => format_currency($currentMonthPurchases),
         ]);
     }
 
@@ -153,12 +143,12 @@ class HomeController extends Controller
         $months = [];
 
         foreach ($dates_received as $key => $value) {
-            $received_payments[] = $value;
+            $received_payments[] = $value / 100;
             $months[] = $key;
         }
 
         foreach ($dates_sent as $key => $value) {
-            $sent_payments[] = $value;
+            $sent_payments[] = $value / 100;
         }
 
         return response()->json([
@@ -193,7 +183,6 @@ class HomeController extends Controller
         $days = [];
         foreach ($dates as $key => $value) {
             $data[] = $value / 100;
-            // $data[] = $value;
             $days[] = $key;
         }
 
@@ -226,7 +215,6 @@ class HomeController extends Controller
         $days = [];
         foreach ($dates as $key => $value) {
             $data[] = $value / 100;
-            // $data[] = $value;
             $days[] = $key;
         }
 

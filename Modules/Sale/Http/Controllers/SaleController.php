@@ -36,7 +36,14 @@ class SaleController extends Controller
 
     public function store(StoreSaleRequest $request) {
         DB::transaction(function () use ($request) {
-            $due_amount = $request->total_amount - $request->paid_amount;
+            //$due_amount = $request->total_amount - $request->paid_amount;
+
+            $total_amount = 0;
+            foreach (Cart::instance('sale')->content() as $cart_item) {
+                $total_amount += $cart_item->options->sub_total;
+            }
+
+            $due_amount = $total_amount - $request->paid_amount;
 
             if ($due_amount == $request->total_amount) {
                 $payment_status = 'Unpaid';
@@ -49,7 +56,7 @@ class SaleController extends Controller
             $sale = Sale::create([
                 'date' => $request->date,
                 'paid_amount' => $request->paid_amount * 100,
-                'total_amount' => $request->total_amount * 100,
+                'total_amount' => $total_amount * 100,
                 'due_amount' => $due_amount * 100,
                 'status' => $request->status,
                 'payment_status' => $payment_status,

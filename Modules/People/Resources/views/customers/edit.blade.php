@@ -1,4 +1,4 @@
-<!-- @extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Edit Customer')
 
@@ -28,7 +28,7 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="customer_name">Customer Name <span class="text-danger">*</span></label>
+                                        <label for="customer_name">Nama Customer <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="customer_name" required value="{{ $customer->customer_name }}">
                                     </div>
                                 </div>
@@ -43,19 +43,19 @@
                             <div class="form-row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="customer_phone">Phone <span class="text-danger">*</span></label>
+                                        <label for="customer_phone">No HP <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="customer_phone" required value="{{ $customer->customer_phone }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="city">City <span class="text-danger">*</span></label>
+                                        <label for="city">Kota <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="city" required value="{{ $customer->city }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="country">Country <span class="text-danger">*</span></label>
+                                        <label for="country">Negara <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="country" required value="{{ $customer->country }}">
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                             <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="address">Address <span class="text-danger">*</span></label>
+                                        <label for="address">Alamat <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="address" required value="{{ $customer->address }}">
                                     </div>
                                 </div>
@@ -76,4 +76,4 @@
         </form>
     </div>
 @endsection
- -->
+

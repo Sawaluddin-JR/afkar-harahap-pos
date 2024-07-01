@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="checkoutModalLabel">
-                    <i class="bi bi-cart-check text-primary"></i> Confirm Sale
+                    <i class="bi bi-cart-check text-primary"></i> Konfirmasi Penjualan
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -70,7 +70,7 @@
                                         <td>(+) {{ format_currency(Cart::instance($cart_instance)->tax()) }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Discount ({{ $global_discount }}%)</th>
+                                        <th>Diskon ({{ $global_discount }}%)</th>
                                         <td>(-) {{ format_currency(Cart::instance($cart_instance)->discount()) }}</td>
                                     </tr>
                                     <tr>
@@ -80,8 +80,11 @@
                                     </tr>
                                     <tr class="text-primary">
                                         <th>Grand Total</th>
-                                        @php
+                                        <!-- @php
                                             $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping
+                                        @endphp -->
+                                        @php
+                                            $total_with_shipping = Cart::instance($cart_instance)->total()
                                         @endphp
                                         <th>
                                             (=) {{ format_currency($total_with_shipping) }}

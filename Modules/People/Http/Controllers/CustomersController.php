@@ -47,7 +47,7 @@ use Modules\People\Entities\Customer;
 //             'address'        => $request->address
 //         ]);
 
-//         toast('Customer Created!', 'success');
+//         toast('Customer Berhasil Ditambahkan!', 'success');
 
 //         return redirect()->route('customers.index');
 //     }
@@ -88,7 +88,7 @@ use Modules\People\Entities\Customer;
 //             'address'        => $request->address
 //         ]);
 
-//         toast('Customer Updated!', 'info');
+//         toast('Customer Berhasil diPerbarui!', 'info');
 
 //         return redirect()->route('customers.index');
 //     }
@@ -99,7 +99,7 @@ use Modules\People\Entities\Customer;
 
 //         $customer->delete();
 
-//         toast('Customer Deleted!', 'warning');
+//         toast('Customer Berhasil diHapus!', 'warning');
 
 //         return redirect()->route('customers.index');
 //     }
