@@ -38,16 +38,16 @@ class SaleController extends Controller
         DB::transaction(function () use ($request) {
             //$due_amount = $request->total_amount - $request->paid_amount;
 
-            $total_amount = 0;
+            $totalAmount = 0;
             foreach (Cart::instance('sale')->content() as $cart_item) {
-                $total_amount += $cart_item->options->sub_total;
+                $totalAmount += $cart_item->options->sub_total;
             }
 
-            $due_amount = $total_amount - $request->paid_amount;
+            $dueAmount = $totalAmount - $request->paid_amount;
 
-            if ($due_amount == $request->total_amount) {
+            if ($dueAmount == $totalAmount) {
                 $payment_status = 'Unpaid';
-            } elseif ($due_amount > 0) {
+            } elseif ($dueAmount > 0) {
                 $payment_status = 'Partial';
             } else {
                 $payment_status = 'Paid';
@@ -56,8 +56,8 @@ class SaleController extends Controller
             $sale = Sale::create([
                 'date' => $request->date,
                 'paid_amount' => $request->paid_amount * 100,
-                'total_amount' => $total_amount * 100,
-                'due_amount' => $due_amount * 100,
+                'total_amount' => $totalAmount * 100,
+                'due_amount' => $dueAmount * 100,
                 'status' => $request->status,
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,
@@ -144,11 +144,16 @@ class SaleController extends Controller
     public function update(UpdateSaleRequest $request, Sale $sale) {
         DB::transaction(function () use ($request, $sale) {
 
-            $due_amount = $request->total_amount - $request->paid_amount;
+            $totalAmount = 0;
+            foreach (Cart::instance('sale')->content() as $cart_item) {
+                $totalAmount += $cart_item->options->sub_total;
+            }
 
-            if ($due_amount == $request->total_amount) {
+            $dueAmount = $totalAmount - $request->paid_amount;
+
+            if ($dueAmount == $totalAmount) {
                 $payment_status = 'Unpaid';
-            } elseif ($due_amount > 0) {
+            } elseif ($dueAmount > 0) {
                 $payment_status = 'Partial';
             } else {
                 $payment_status = 'Paid';
@@ -168,8 +173,8 @@ class SaleController extends Controller
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'paid_amount' => $request->paid_amount * 100,
-                'total_amount' => $request->total_amount * 100,
-                'due_amount' => $due_amount * 100,
+                'total_amount' => $totalAmount * 100,
+                'due_amount' => $dueAmount * 100,
                 'status' => $request->status,
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,

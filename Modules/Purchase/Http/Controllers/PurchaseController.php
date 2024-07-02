@@ -41,16 +41,16 @@ class PurchaseController extends Controller
             // $paidAmount = (int) $request->paid_amount;
             // $due_amount = $totalAmount - $paidAmount;
 
-            $total_amount = 0;
+            $totalAmount = 0;
             foreach (Cart::instance('purchase')->content() as $cart_item) {
-                $total_amount += $cart_item->options->sub_total;
+                $totalAmount += $cart_item->options->sub_total;
             }
 
-            $due_amount = $total_amount - $request->paid_amount;
+            $dueAmount = $totalAmount - $request->paid_amount;
 
-            if ($due_amount == $request->total_amount) {
+            if ($dueAmount == $totalAmount) {
                 $payment_status = 'Unpaid';
-            } elseif ($due_amount > 0) {
+            } elseif ($dueAmount > 0) {
                 $payment_status = 'Partial';
             } else {
                 $payment_status = 'Paid';
@@ -61,8 +61,8 @@ class PurchaseController extends Controller
                 'supplier_id' => $request->supplier_id,
                 'supplier_name' => Supplier::findOrFail($request->supplier_id)->supplier_name,
                 'paid_amount' => $request->paid_amount * 100,
-                'total_amount' => $total_amount * 100,
-                'due_amount' => $due_amount * 100,
+                'total_amount' => $totalAmount * 100,
+                'due_amount' => $dueAmount * 100,
                 'status' => $request->status,
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,
@@ -148,10 +148,18 @@ class PurchaseController extends Controller
 
     public function update(UpdatePurchaseRequest $request, Purchase $purchase) {
         DB::transaction(function () use ($request, $purchase) {
-            $due_amount = $request->total_amount - $request->paid_amount;
-            if ($due_amount == $request->total_amount) {
+            // $due_amount = $request->total_amount - $request->paid_amount;
+
+            $totalAmount = 0;
+            foreach (Cart::instance('sale')->content() as $cart_item) {
+                $totalAmount += $cart_item->options->sub_total;
+            }
+
+            $dueAmount = $totalAmount - $request->paid_amount;
+
+            if ($dueAmount == $totalAmount) {
                 $payment_status = 'Unpaid';
-            } elseif ($due_amount > 0) {
+            } elseif ($dueAmount > 0) {
                 $payment_status = 'Partial';
             } else {
                 $payment_status = 'Paid';
@@ -173,8 +181,8 @@ class PurchaseController extends Controller
                 'supplier_id' => $request->supplier_id,
                 'supplier_name' => Supplier::findOrFail($request->supplier_id)->supplier_name,
                 'paid_amount' => $request->paid_amount * 100,
-                'total_amount' => $request->total_amount * 100,
-                'due_amount' => $due_amount * 100,
+                'total_amount' => $totalAmount * 100,
+                'due_amount' => $dueAmount * 100,
                 'status' => $request->status,
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,

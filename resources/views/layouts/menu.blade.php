@@ -90,15 +90,15 @@
     </li>
 @endcan
 
-@can('access_reports')
+<!-- @can('access_reports')
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link {{ request()->routeIs('sales-report.index') ? 'c-active' : '' }}" href="{{ route('sales-report.index') }}">
             <i class="c-sidebar-nav-icon bi bi-clipboard-data" style="line-height: 1;"></i> Laporan Penjualan
         </a>
     </li>
-@endcan
+@endcan -->
 
-<!-- @can('access_reports')
+@can('access_reports')
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('*-report.index') ? 'c-show' : '' }}">
         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
             <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Laporan
@@ -116,7 +116,7 @@
             </li>
         </ul>
     </li>
-@endcan -->
+@endcan
 
 @can('access_user_management')
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('roles*') ? 'c-show' : '' }}">
