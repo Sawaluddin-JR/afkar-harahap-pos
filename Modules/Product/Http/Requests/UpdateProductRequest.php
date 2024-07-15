@@ -31,6 +31,15 @@ class UpdateProductRequest extends FormRequest
         ];
     }
 
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->product_quantity < $this->product_stock_alert) {
+                $validator->errors()->add('product_quantity', 'Jumlah produk tidak boleh kurang dari stok alert.');
+            }
+        });
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *

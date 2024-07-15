@@ -77,6 +77,9 @@
                     @endif
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end">
+                <p>Total Subtotal: {{ format_currency($total_subtotal) }}</h4>
+            </div>
         </div>
     </div>
 </div>

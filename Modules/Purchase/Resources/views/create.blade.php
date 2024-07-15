@@ -62,7 +62,7 @@
                                     <div class="form-group">
                                         <label for="status">Status <span class="text-danger">*</span></label>
                                         <select class="form-control" name="status" id="status" required>
-                                            <option value="Pending">Pending</option>
+                                            <!-- <option value="Pending">Pending</option> -->
                                             <option value="Ordered">Ordered</option>
                                             <option value="Completed">Completed</option>
                                         </select>

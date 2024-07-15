@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label for="status">Status <span class="text-danger">*</span></label>
                                         <select class="form-control" name="status" id="status" required>
-                                            <option value="Pending">Pending</option>
+                                            <!-- <option value="Pending">Pending</option> -->
                                             <option value="Shipped">Shipped</option>
                                             <option value="Completed">Completed</option>
                                         </select>
@@ -119,7 +119,6 @@
                 var paid_amount = $('#paid_amount').maskMoney('unmasked')[0];
                 $('#paid_amount').val(paid_amount);
             });
-
         });
     </script>
 @endpush

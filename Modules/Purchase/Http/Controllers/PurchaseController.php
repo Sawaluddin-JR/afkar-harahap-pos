@@ -151,7 +151,7 @@ class PurchaseController extends Controller
             // $due_amount = $request->total_amount - $request->paid_amount;
 
             $totalAmount = 0;
-            foreach (Cart::instance('sale')->content() as $cart_item) {
+            foreach (Cart::instance('purchase')->content() as $cart_item) {
                 $totalAmount += $cart_item->options->sub_total;
             }
 

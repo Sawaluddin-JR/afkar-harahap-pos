@@ -13,6 +13,8 @@ class ProductCart extends Component
     public $listeners = ['productSelected', 'discountModalRefresh'];
 
     public $cart_instance;
+    public $total_subtotal = 0;
+
     public $quantity;
     public $check_quantity;
     public $unit_price;
@@ -38,6 +40,8 @@ class ProductCart extends Component
                 } elseif ($cart_item->options->product_discount_type == 'percentage') {
                     $this->item_discount[$cart_item->id] = round(100 * ($cart_item->options->product_discount / $cart_item->price));
                 }
+
+                $this->total_subtotal += $cart_item->options->sub_total;
             }
         } else {
             $this->check_quantity = [];
@@ -85,9 +89,14 @@ class ProductCart extends Component
 
         $this->check_quantity[$product['id']] = $product['product_quantity'];
         $this->quantity[$product['id']] = 1;
+
+        $this->total_subtotal += $this->calculate($product)['sub_total'];
     }
 
     public function removeItem($row_id) {
+        $cart_item = Cart::instance($this->cart_instance)->get($row_id);
+        $this->total_subtotal -= $cart_item->options->sub_total;
+
         Cart::instance($this->cart_instance)->remove($row_id);
     }
 
@@ -99,13 +108,23 @@ class ProductCart extends Component
             }
         }
 
-        Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
+        //Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
 
         $cart_item = Cart::instance($this->cart_instance)->get($row_id);
 
+        // Hitung subtotal baru berdasarkan kuantitas yang diperbarui
+        $new_sub_total = $cart_item->price * $this->quantity[$product_id];
+
+        // Sesuaikan total_subtotal
+        $this->total_subtotal -= $cart_item->options->sub_total;
+        $this->total_subtotal += $new_sub_total;
+
+        Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
+
         Cart::instance($this->cart_instance)->update($row_id, [
             'options' => [
-                'sub_total'             => $cart_item->price * $cart_item->qty,
+                //'sub_total'             => $cart_item->price * $cart_item->qty,
+                'sub_total'             => $new_sub_total,
                 'code'                  => $cart_item->options->code,
                 'stock'                 => $cart_item->options->stock,
                 'unit_price'            => $cart_item->options->unit_price,
@@ -119,14 +138,24 @@ class ProductCart extends Component
 
         $cart_item = Cart::instance($this->cart_instance)->get($row_id);
 
-        Cart::instance($this->cart_instance)->update($row_id, ['price' => $this->unit_price[$product['id']]]);
+        $new_price = $this->unit_price[$product['id']];
+        $new_sub_total = $this->calculate($product, $new_price)['sub_total'];
+
+        // Sesuaikan total_subtotal
+        $this->total_subtotal -= $cart_item->options->sub_total;
+        $this->total_subtotal += $new_sub_total;
+
+        //Cart::instance($this->cart_instance)->update($row_id, ['price' => $this->unit_price[$product['id']]]);
+        Cart::instance($this->cart_instance)->update($row_id, ['price' => $new_price]);
 
         Cart::instance($this->cart_instance)->update($row_id, [
             'options' => [
-                'sub_total'             => $this->calculate($product, $this->unit_price[$product['id']])['sub_total'],
+                //'sub_total'             => $this->calculate($product, $this->unit_price[$product['id']])['sub_total'],
+                'sub_total'             => $new_sub_total,
                 'code'                  => $cart_item->options->code,
                 'stock'                 => $cart_item->options->stock,
-                'unit_price'            => $this->calculate($product, $this->unit_price[$product['id']])['unit_price'],
+                //'unit_price'            => $this->calculate($product, $this->unit_price[$product['id']])['unit_price'],
+                'unit_price'            => $this->calculate($product, $new_price)['unit_price'],
             ]
         ]);
     }

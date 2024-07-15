@@ -104,9 +104,14 @@
             <i class="c-sidebar-nav-icon bi bi-graph-up" style="line-height: 1;"></i> Laporan
         </a>
         <ul class="c-sidebar-nav-dropdown-items">
-            <li class="c-sidebar-nav-item">
+            <!-- <li class="c-sidebar-nav-item">
                 <a class="c-sidebar-nav-link {{ request()->routeIs('profit-loss-report.index') ? 'c-active' : '' }}" href="{{ route('profit-loss-report.index') }}">
                     <i class="c-sidebar-nav-icon bi bi-clipboard-data" style="line-height: 1;"></i> Laporan Laba/Rugi 
+                </a>
+            </li> -->
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link {{ request()->routeIs('purchases-report.index') ? 'c-active' : '' }}" href="{{ route('purchases-report.index') }}">
+                    <i class="c-sidebar-nav-icon bi bi-clipboard-data" style="line-height: 1;"></i> Laporan Pembelian
                 </a>
             </li>
             <li class="c-sidebar-nav-item">
