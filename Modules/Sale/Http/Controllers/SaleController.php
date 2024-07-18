@@ -40,6 +40,11 @@ class SaleController extends Controller
 
             $totalAmount = 0;
             foreach (Cart::instance('sale')->content() as $cart_item) {
+                if ($cart_item->options->stock < $cart_item->qty) {
+                    session()->flash('message', 'Kuantitas yang diminta untuk produk ' . $cart_item->name . ' tidak tersedia di stok.');
+                    return redirect()->back();
+                }
+
                 $totalAmount += $cart_item->options->sub_total;
             }
 
@@ -146,6 +151,10 @@ class SaleController extends Controller
 
             $totalAmount = 0;
             foreach (Cart::instance('sale')->content() as $cart_item) {
+                if ($cart_item->options->stock < $cart_item->qty) {
+                    session()->flash('message', 'Kuantitas yang diminta untuk produk ' . $cart_item->name . ' tidak tersedia di stok.');
+                    return redirect()->back();
+                }
                 $totalAmount += $cart_item->options->sub_total;
             }
 

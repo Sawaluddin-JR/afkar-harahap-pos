@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="product_quantity">Jumlah <span class="text-danger">*</span></label>
+                                        <label for="product_quantity">Stok <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" name="product_quantity" required value="{{ $product->product_quantity }}" min="1">
                                         @if ($errors->has('product_quantity'))
                                             <span class="text-danger">{{ $errors->first('product_quantity') }}</span>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-row">                               
+                            <!-- <div class="form-row">                               
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="product_stock_alert">Stok Minimum <span class="text-danger">*</span></label>
@@ -88,7 +88,7 @@
                                         @endif
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="product_note">Catatan</label>
                                 <textarea name="product_note" id="product_note" rows="4 " class="form-control">{{ $product->product_note }}</textarea>

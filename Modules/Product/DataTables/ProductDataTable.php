@@ -49,7 +49,7 @@ class ProductDataTable extends DataTable
                     ->dom("<'row'<'col-md-3'l><'col-md-5 mb-2'B><'col-md-4'f>> .
                                 'tr' .
                                 <'row'<'col-md-5'i><'col-md-7 mt-2'p>>")
-                    ->orderBy(7)
+                    ->orderBy(6)
                     ->buttons(
                         Button::make('print')
                             ->text('<i class="bi bi-printer-fill"></i> Print'),
@@ -87,9 +87,9 @@ class ProductDataTable extends DataTable
                 ->title('Harga')
                 ->className('text-center align-middle'),
 
-            Column::computed('product_quantity')
-                ->title('Jumlah')
-                ->className('text-center align-middle'),
+            // Column::computed('product_quantity')
+            //     ->title('Jumlah')
+            //     ->className('text-center align-middle'),
 
             Column::computed('action')
                 ->exportable(false)

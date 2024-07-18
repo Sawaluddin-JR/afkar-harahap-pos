@@ -66,8 +66,12 @@ class ProductCart extends Component
         });
 
         if ($exists->isNotEmpty()) {
-            session()->flash('message', 'Product exists in the cart!');
+            session()->flash('message', 'Produk sudah ada di keranjang!');
+            return;
+        }
 
+        if ($product['product_quantity'] < 1) {
+            session()->flash('message', 'Produk tidak tersedia.');
             return;
         }
 
@@ -101,16 +105,24 @@ class ProductCart extends Component
     }
 
     public function updateQuantity($row_id, $product_id) {
-        if  ($this->cart_instance == 'sale' || $this->cart_instance == 'purchase_return') {
-            if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
-                session()->flash('message', 'The requested quantity is not available in stock.');
-                return;
-            }
+        $cart_item = Cart::instance($this->cart_instance)->get($row_id);
+        $product = Product::findOrFail($product_id);
+        
+        // if  ($this->cart_instance == 'sale' || $this->cart_instance == 'purchase_return') {
+        //     if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
+        //         session()->flash('message', 'Kuantitas yang diminta tidak tersedia di stok.');
+        //         return;
+        //     }
+        // }   
+
+        if ($this->quantity[$product_id] > $product->product_quantity) {
+            session()->flash('message', 'Jumlah yang diminta tidak tersedia dalam stok.');
+            return;
         }
 
         //Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
 
-        $cart_item = Cart::instance($this->cart_instance)->get($row_id);
+        //$cart_item = Cart::instance($this->cart_instance)->get($row_id);
 
         // Hitung subtotal baru berdasarkan kuantitas yang diperbarui
         $new_sub_total = $cart_item->price * $this->quantity[$product_id];
@@ -132,11 +144,14 @@ class ProductCart extends Component
         ]);
     }
 
-
     public function updatePrice($row_id, $product_id) {
         $product = Product::findOrFail($product_id);
-
         $cart_item = Cart::instance($this->cart_instance)->get($row_id);
+
+        if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
+            session()->flash('message', 'Kuantitas yang diminta tidak tersedia di stok.');
+            return;
+        }
 
         $new_price = $this->unit_price[$product['id']];
         $new_sub_total = $this->calculate($product, $new_price)['sub_total'];

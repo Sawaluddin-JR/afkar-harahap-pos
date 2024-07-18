@@ -31,7 +31,13 @@ class ProductController extends Controller
 
 
     public function store(StoreProductRequest $request) {
-        $product = Product::create($request->except('document'));
+        //$product = Product::create($request->except('document'));
+        $data = $request->except('document');
+        if (!isset($data['product_stock_alert'])) {
+            $data['product_stock_alert'] = 10; 
+        }
+
+        $product = Product::create($data);
 
         if ($request->has('document')) {
             foreach ($request->input('document', []) as $file) {
@@ -60,7 +66,14 @@ class ProductController extends Controller
 
 
     public function update(UpdateProductRequest $request, Product $product) {
-        $product->update($request->except('document'));
+        //$product->update($request->except('document'));
+
+        $data = $request->except('document');
+        if (!isset($data['product_stock_alert'])) {
+            $data['product_stock_alert'] = 10; 
+        }
+
+        $product->update($data);
 
         if ($request->has('document')) {
             if (count($product->getMedia('images')) > 0) {
